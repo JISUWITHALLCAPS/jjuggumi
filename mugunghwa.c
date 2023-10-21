@@ -40,7 +40,7 @@ void passed(int p,int nx,int ny) {
 	}
 }
 void move_player(key_t key) {
-	int dir;  // ¿òÁ÷ÀÏ ¹æÇâ(0~3)
+	int dir;  // ì›€ì§ì¼ ë°©í–¥(0~3)
 	switch (key) {
 	case K_UP: dir = DIR_UP; break;
 	case K_DOWN: dir = DIR_DOWN; break;
@@ -95,8 +95,8 @@ int move_p(int p) {
 	}
 }
 void r_move_computer(int player, int dir[]) {
-	int p = player;  // ÀÌ¸§ÀÌ ±æ¾î¼­...
-	int nx, ny;  // ¿òÁ÷¿©¼­ ´ÙÀ½¿¡ ³õÀÏ ÀÚ¸®
+	int p = player;  // ì´ë¦„ì´ ê¸¸ì–´ì„œ...
+	int nx, ny;  // ì›€ì§ì—¬ì„œ ë‹¤ìŒì— ë†“ì¼ ìë¦¬
 	dir[p] = move_p(p);
 	if (camera == 1 && dir[p] != 3) {
 		check_move(p, dir[p]);
@@ -210,22 +210,22 @@ void mugunghwa() {
 		if ( cnt == 0) {
 			gotoxy(15,0);
 				switch (tick4print) {
-				case 200:printf("¹« ");  break;
-				case 300:printf("¹« ±Ã ");  break;
-				case 500:printf("¹« ±Ã È­ ");  break;
-				case 800:printf("¹« ±Ã È­ ²É ");  break;
-				case 1200:printf("¹« ±Ã È­ ²É ÀÌ "); cnt = 6; break;
+				case 200:printf("ë¬´ ");  break;
+				case 300:printf("ë¬´ ê¶ ");  break;
+				case 500:printf("ë¬´ ê¶ í™” ");  break;
+				case 800:printf("ë¬´ ê¶ í™” ê½ƒ ");  break;
+				case 1200:printf("ë¬´ ê¶ í™” ê½ƒ ì´ "); cnt = 6; break;
 				default: break;
 				}
 		}
 		if ( cnt == 6) {
 			gotoxy(15, 15);
 				switch (tick4print) {
-				case 1600:printf("ÇÇ "); break;
-				case 2000:printf("ÇÇ ¾ú ");  break;
-				case 2300:printf("ÇÇ ¾ú ½À ");  break;
-				case 2500:printf("ÇÇ ¾ú ½À ´Ï ");  break;
-				case 2600:printf("ÇÇ ¾ú ½À ´Ï ´Ù "); cnt = 11;  break;
+				case 1600:printf("í”¼ "); break;
+				case 2000:printf("í”¼ ì—ˆ ");  break;
+				case 2300:printf("í”¼ ì—ˆ ìŠµ ");  break;
+				case 2500:printf("í”¼ ì—ˆ ìŠµ ë‹ˆ ");  break;
+				case 2600:printf("í”¼ ì—ˆ ìŠµ ë‹ˆ ë‹¤ "); cnt = 11;  break;
 				default: break;
 				}
 		}
