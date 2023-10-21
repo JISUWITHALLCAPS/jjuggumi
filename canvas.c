@@ -9,20 +9,20 @@
 void draw(void);
 void print_status(void);
 
-// (zero-base) rowÇà, col¿­·Î Ä¿¼­ ÀÌµ¿
+// (zero-base) rowí–‰, colì—´ë¡œ ì»¤ì„œ ì´ë™
 void gotoxy(int row, int col) {
 	COORD pos = { col,row };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-// rowÇà, col¿­¿¡ ch Ãâ·Â
+// rowí–‰, colì—´ì— ch ì¶œë ¥
 void printxy(char ch, int row, int col) {
 	gotoxy(row, col);
 	printf("%c", ch);
 }
 
-void map_init(int n_row, int n_col) {
-	// µÎ ¹öÆÛ¸¦¸¦ ¿ÏÀüÈ÷ ºñ¿ì±â
+void back_buf_init(int n_row, int n_col) {
+	// ë‘ ë²„í¼ë¥¼ë¥¼ ì™„ì „íˆ ë¹„ìš°ê¸°
 	for (int i = 0; i < ROW_MAX; i++) {
 		for (int j = 0; j < COL_MAX; j++) {
 			back_buf[i][j] = front_buf[i][j] = ' ';
@@ -32,16 +32,16 @@ void map_init(int n_row, int n_col) {
 	N_ROW = n_row;
 	N_COL = n_col;
 	for (int i = 0; i < N_ROW; i++) {
-		// ´ëÀÔ¹® ÀÌ·¸°Ô ¾µ ¼ö ÀÖ´Âµ¥ ÀÏºÎ·¯ ¾È °¡¸£ÃÄÁáÀ½
-		back_buf[i][0] = back_buf[i][N_COL - 1] = '#';
+		// ëŒ€ì…ë¬¸ ì´ë ‡ê²Œ ì“¸ ìˆ˜ ìˆëŠ”ë° ì¼ë¶€ëŸ¬ ì•ˆ ê°€ë¥´ì³ì¤¬ìŒ
+		back_buf[i][0] = back_buf[i][N_COL - 1] = '*';
 
 		for (int j = 1; j < N_COL - 1; j++) {
-			back_buf[i][j] = (i == 0 || i == N_ROW - 1) ? '#' : ' ';
+			back_buf[i][j] = (i == 0 || i == N_ROW - 1) ? '*' : ' ';
 		}
 	}
 }
 
-// back_buf[row][col]ÀÌ ÀÌµ¿ÇÒ ¼ö ÀÖ´Â ÀÚ¸®ÀÎÁö È®ÀÎÇÏ´Â ÇÔ¼ö
+// back_buf[row][col]ì´ ì´ë™í•  ìˆ˜ ìˆëŠ” ìë¦¬ì¸ì§€ í™•ì¸í•˜ëŠ” í•¨ìˆ˜
 bool placable(int row, int col) {
 	if (row < 0 || row >= N_ROW ||
 		col < 0 || col >= N_COL ||
@@ -51,10 +51,10 @@ bool placable(int row, int col) {
 	return true;
 }
 
-// »ó´Ü¿¡ ¸ÊÀ», ÇÏ´Ü¿¡´Â ÇöÀç »óÅÂ¸¦ Ãâ·Â
+// ìƒë‹¨ì— ë§µì„, í•˜ë‹¨ì—ëŠ” í˜„ì¬ ìƒíƒœë¥¼ ì¶œë ¥
 void display(void) {
 	draw();
-	gotoxy(N_ROW + 4, 0);  // Ãß°¡·Î Ç¥½ÃÇÒ Á¤º¸°¡ ÀÖÀ¸¸é ¸Ê°ú »óÅÂÃ¢ »çÀÌÀÇ ºó °ø°£¿¡ Ãâ·Â
+	gotoxy(N_ROW + 4, 0);  // ì¶”ê°€ë¡œ í‘œì‹œí•  ì •ë³´ê°€ ìˆìœ¼ë©´ ë§µê³¼ ìƒíƒœì°½ ì‚¬ì´ì˜ ë¹ˆ ê³µê°„ì— ì¶œë ¥
 	print_status();
 }
 
@@ -77,5 +77,35 @@ void print_status(void) {
 }
 
 void dialog(char message[]) {
+	int remainTime = DIALOG_DURATION_SEC;
 
+	//system("pause");
+
+	while (remainTime > 0)
+	{
+		gotoxy(5, 5); //ì»¤ì„œ ì¤‘ì•™ìœ¼ë¡œ ì´ë™
+		printf("Remaining time : %d seconds\n", remainTime);
+		gotoxy(6, 5);
+		printf("**********************\n");
+		gotoxy(7, 5);
+		printf("%s\n", message);
+		gotoxy(8, 5);
+		printf("**********************\n");
+
+		remainTime--;
+
+		Sleep(1000);
+		gotoxy(5, 5);
+		printf("                            ");
+		gotoxy(6, 5);
+		printf("                            ");
+		gotoxy(7, 5);
+		printf("                            ");
+		gotoxy(8, 5);
+		printf("                            ");
+
+
+	}
+
+	display();
 }
